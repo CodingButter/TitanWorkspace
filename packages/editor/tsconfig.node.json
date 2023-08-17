@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "skipLibCheck": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "paths": {
+            "@titan-utils/*": ["../utils/*"]
+        }
+    },
+    "include": ["vite.config.ts"]
+}

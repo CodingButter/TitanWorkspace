@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "titan",
+    "workspaces": ["packages/*"],
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "dev",
+        "build": "build"
+    }
+}
