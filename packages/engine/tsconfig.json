@@ -2,15 +2,18 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "target": "es2016",
-        "module": "ESNext",
+        "module": "NodeNext",
         "outDir": "./dist/",
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": false,
         "baseUrl": "./src",
+        "typeRoots": [
+            "./node_modules/@types", "./src/index.d.ts"
+        ],
         "paths": {
             "@core/*": ["core/*"],
             "@systems/*": ["systems/*"],
-            "@utiles/*": ["utiles/*"],
+            "@utils/*": ["utils/*"],
             "@components/*": ["components/*"]
         }
     },

@@ -1,8 +1,26 @@
-import Components from "@titan/Scene/Component/Components"
-
 declare type Layer = "World" | "UI"
+declare type UUID = `${number}-${number}-${number}-${number}-${number}`
 
-declare enum KEYS {
+declare enum MOUSE_BUTTON {
+    LEFT = 0,
+    MIDDLE = 1,
+    RIGHT = 2
+}
+
+declare enum MOUSE_ACTION {
+    UP = 'mouseup',
+    DOWN = 'mousedown',
+    MOVE = 'mousemove',
+    WHEEL = 'mousewheel'
+}
+
+
+declare enum KEYBOARD_ACTION {
+    KEYDOWN = "keydown",
+    KEYUP = "keyup",
+}
+
+declare enum KEY {
     ALT = "Alt",
     ALT_GRAPH = "AltGraph",
     CAPS_LOCK = "CapsLock",

@@ -1,4 +1,4 @@
-import CoreEngine from "@titan/Core/Core"
+import CoreEngine from "@core/Core"
 
 export default class TitanEngine {
   private static Core: CoreEngine = CoreEngine.get()
@@ -19,6 +19,7 @@ export default class TitanEngine {
   static getCore() {
     return TitanEngine.Core;
   }
+
 }
 
 

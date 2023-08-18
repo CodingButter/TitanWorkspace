@@ -1,6 +1,7 @@
-import BaseClass from "@app/titan/BaseClass"
-import Entity from "@titan/Scene/Entity"
-import Scene from "@titan/Scene/Scene"
+import BaseClass from "@core/BaseClass"
+import Entity from "@systems/Entity/Entity"
+import Scene from "@systems/Scene/Scene"
+
 export default class APP extends BaseClass {
     constructor(entity: Entity) {
         super(entity)

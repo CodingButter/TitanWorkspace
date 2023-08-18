@@ -1,5 +1,4 @@
-
-import BaseClass, { BaseClassProps } from "@app/titan/BaseClass";
+import BaseClass, { BaseClassProps } from "@core/BaseClass"
 export type ComponentProps = BaseClassProps
 export default class Component extends BaseClass {
     constructor({ entity }: ComponentProps = {}) {

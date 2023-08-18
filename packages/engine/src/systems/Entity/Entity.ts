@@ -1,25 +1,22 @@
-import Component from "@titan/Scene/Component/Component"
-import TransformComponent from "@titan/Scene/Component/TransformComponent"
-import MeshComponent from "@titan/Scene/Component/MeshComponent"
-import BaseClass from "@titan/BaseClass"
-import Scene from "@titan/Scene/Scene"
-import Components from "@titan/Scene/Component/Components"
-import { Vec3 } from "@titan/Core/Utils/Matrix"
+import { Vec3 } from "@utils/Matrix"
+import ComponentManager from "@systems/Component/ComponentManager"
+import BaseClass from "@core/BaseClass"
+import Scene from "@systems/Scene/Scene"
+import TransformComponent from "@systems/Component/Components/TransformComponent"
+
+export interface EntityProps {
+  scene?: Scene
+}
 
 export default class Entity extends BaseClass {
-  transform: TransformComponent
-  constructor(scene: Scene) {
-    super(undefined, scene)
-    this.transform = new TransformComponent()
-    this.addComponent(this.transform)
-  }
-
-  static createComponent<T extends Partial<Component>>(
-    componentName: string,
-    ...args: ConstructorParameters<new (...args: any) => T>
-  ): T {
-    const component = new Components[componentName](...args) as T
-    return component
+  private transform: TransformComponent
+  constructor({ scene }: EntityProps = {}) {
+    super({ scene: scene })
+    this.transform = ComponentManager.createComponent('TransformComponent', {
+      entity: this,
+      scene: scene
+    })
+    ComponentManager.addComponent(this.transform)
   }
 
   get position() {
@@ -50,47 +47,6 @@ export default class Entity extends BaseClass {
     this.transform.scale.x = scale.x
     this.transform.scale.y = scale.y
     this.transform.scale.z = scale.z
-  }
-
-  get mesh() {
-    this.scene.getComponent(MeshComponent, this.id)
-  }
-
-  addComponent<T extends Partial<Component>>(component: T): T {
-    component.entity = this
-    component.runtime = component.entity.runtime
-    if (this.hasComponent<T>(component)) {
-      console.assert(
-        false,
-        `Component ${component.constructor.name} already exists on entity ${this.name}`
-      )
-    } else {
-      this.scene?.addComponent<T>(component)
-    }
-    return component
-  }
-
-  getComponent<T extends Partial<Component>>(componentClass: ComponentClass): T | undefined {
-    return this.scene?.getComponent<T>(typeof componentClass, this.id)
-  }
-
-  getComponentById<T extends Partial<Component>>(
-    componentClass: ComponentClass,
-    componentId: string
-  ): T | undefined {
-    return this.scene?.getComponentById<T>(componentClass, componentId)
-  }
-
-  hasComponent<T extends Partial<Component>>(componentClass: T): boolean {
-    return this.getComponent<T>(componentClass) !== undefined
-  }
-
-  removeComponent<T extends Partial<Component>>(componentClass: T): void {
-    this.scene?.removeComponent<T>(componentClass, this.id)
-  }
-
-  get components(): Component[] {
-    return this.scene?.getComponentsByEntityId(this.id) || []
   }
 
   loadState(state: any) {

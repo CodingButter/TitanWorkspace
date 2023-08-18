@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Component, { ComponentProps } from "@titan/Scene/Component/Component"
+import Component, { ComponentProps } from "@systems/Component/Component"
 
 export interface MeshComponentProps extends ComponentProps {
     geometry?: THREE.BufferGeometry,
@@ -7,19 +7,18 @@ export interface MeshComponentProps extends ComponentProps {
 }
 
 export default class MeshComponent extends Component {
-
+    MeshComponentProps: MeshComponentProps = {}
     mesh: THREE.Mesh
     material: THREE.Material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
     geometry: THREE.BufferGeometry = new THREE.BoxGeometry(1, 1, 1)
 
-    constructor({ geometry, material }: MeshComponentProps = {}) {
+    constructor(props: MeshComponentProps = {}) {
         super()
-        geometry && (this.geometry = geometry)
-        material && (this.material = material)
-        this.mesh = new THREE.Mesh(geometry, material)
+        Object.assign(this, props)
+        this.mesh = new THREE.Mesh(this.geometry, this.material)
     }
 
-    loadState(state) {
+    loadState(state: any) {
         super.loadState(state)
         this.geometry = new THREE.BufferGeometry()
     }

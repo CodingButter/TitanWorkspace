@@ -1,5 +1,5 @@
-import Component from "@titan/Scene/Component/Component";
-import { ComponentProps } from "@titan/Scene/Component/Component";
+import Component from "@systems/Component/Component";
+import { ComponentProps } from "@systems/Component/Component";
 
 export interface RigidBodyComponentProps extends ComponentProps {
     mass?: number;

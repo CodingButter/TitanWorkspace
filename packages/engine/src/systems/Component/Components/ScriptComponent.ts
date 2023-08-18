@@ -1,14 +1,16 @@
-import TTN from '@app/titan/Core/ScriptingAPI/TTN'
-import Component, { ComponentProps } from '@titan/Scene/Component/Component'
-import Entity from '@titan/Scene/Entity'
-import Script from '@titan/Core/ScriptingAPI/Script'
-import App from "@titan/Core/ScriptingAPI/App"
+import TTN from '@systems/Scripting/TTN'
+import Component, { ComponentProps } from '@systems/Component/Component'
+import Entity from '@systems/Entity/Entity'
+import Script from '@systems/Scripting/Script'
+import App from "@systems/Scripting/App"
+
+export type ScriptComponentProps = ComponentProps
 
 export default class ScriptComponent extends Component {
     __ttn: TTN
     scripts: Map<string, Script> = new Map()
     app!: App
-    constructor(props: ComponentProps = {}) {
+    constructor(props: ScriptComponentProps = {}) {
         super(props)
         this.__ttn = new TTN(this)
     }
@@ -25,11 +27,13 @@ export default class ScriptComponent extends Component {
         const ttn = this.__ttn
         eval(code)
     }
+
     init() {
         this.scripts.forEach((script) => {
             script.init.bind(script)()
         })
     }
+
     update(delta: number) {
         console.log("script must have update function")
     }

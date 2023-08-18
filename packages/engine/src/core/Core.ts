@@ -1,7 +1,7 @@
 //<reference path="../types/*" />
-import Scene from "@app/titan/Scene/Scene"
-import RenderEngine from "@titan/Renderer/Renderer"
-import PhysicsEngine from "@titan/PhysicsEngine/PhysicsEngine"
+import Scene from "@systems/Scene/Scene"
+import RenderEngine from "@systems/Renderer/Renderer"
+import PhysicsEngine from "@systems/PhysicsEngine/PhysicsEngine"
 
 
 export default class Core {

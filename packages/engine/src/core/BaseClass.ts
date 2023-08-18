@@ -1,11 +1,13 @@
 import { v4 as uuid4 } from "uuid"
-import Scene from "@titan/Scene/Scene"
-import Entity from "@titan/Scene/Entity"
+import Scene from "@systems/Scene/Scene"
+import Entity from "@systems/Entity/Entity"
 
 export interface BaseClassProps {
     entity?: Entity,
     scene?: Scene
 }
+
+// @ts-ignore
 Map.prototype.toJSON = function () {
     return <object>Array.from(this.entries() || []).reduce((obj: any, [key, val]: [string, any]) => {
         obj[key] = val
@@ -13,16 +15,17 @@ Map.prototype.toJSON = function () {
     }, {})
 }
 
+// @ts-ignore
 Set.prototype.toJSON = function () {
-    return [...this].filter((value) => value.toJSON() !== undefined)
+    return <any[]>[...this].filter((value) => value.toJSON() !== undefined)
 }
 
 export default class BaseClass {
     static names: string[] = []
-    id = uuid4()
+    id: UUID = <UUID>uuid4()
     name: string = this.constructor.name
-    sceneId?: string
-    entityId?: string
+    sceneId?: UUID
+    entityId?: UUID
     runtime = false
     __scene: Scene | undefined
     __entity: Entity | undefined
@@ -54,8 +57,9 @@ export default class BaseClass {
         if (this.runtime)
             return
 
-        Object.keys(this).forEach((key) => {
+        Object.keys(this).forEach((key: string) => {
             if (key.startsWith("__")) {
+                // @ts-ignore
                 delete this[key]
             }
         })
